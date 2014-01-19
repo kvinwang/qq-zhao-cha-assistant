@@ -3,37 +3,22 @@ __author__ = 'loong'
 
 from PySide import QtGui, QtCore
 import ImageGrab
-from StringIO import StringIO
-
 import win32gui
-import win32api
-import win32con
 
 
 def log(s):
     print(s)
 
 
-class WindowConfig:
-    WIDTH = 498             # 图宽
-    HEIGHT = 448            # 图高
-    ANCHOR_LEFT_X = 8       # 左图X起点
-    ANCHOR_RIGHT_X = 517    # 右图X起点
-    ANCHOR_Y = 190          # Y起点
-    CLIP_WIDTH = 10
-    CLIP_HEIGHT = 10
-    DIFF_LIMIT = 2000       # 差异阀值，两片图形对比差异差异超过此值视为不一样
+class MeinvConfig:
+    WIDTH = 498
+    HEIGHT = 448
+    ANCHOR_LEFT_X = 8
+    ANCHOR_RIGHT_X = 517
+    ANCHOR_Y = 190
 
 
-class MeinvConfig(WindowConfig):
-    WIDTH = 498             # 图宽
-    HEIGHT = 448            # 图高
-    ANCHOR_LEFT_X = 8       # 左图X起点
-    ANCHOR_RIGHT_X = 517    # 右图X起点
-    ANCHOR_Y = 190          # Y起点
-
-
-class DajiaConfig(WindowConfig):
+class DajiaConfig:
     WIDTH = 381
     HEIGHT = 286
     ANCHOR_LEFT_X = 10
@@ -43,7 +28,7 @@ class DajiaConfig(WindowConfig):
 
 class WindowWrap(object):
     def __init__(self, hwnd):
-        self.hwnd = long(hwnd)
+        self.hwnd = hwnd
 
     def width(self):
         return self.rect().width()
@@ -161,9 +146,6 @@ class Assist(object):
             return
         self.game_wnd = game_wnd
         self.cover_panel.setGeometry(game_wnd.show_rect())
-
-    def reset(self):
-        pass
 
     def snap(self, fmt="qt"):
         def check_swicth(gw):

@@ -2,7 +2,6 @@
 __author__ = 'loong'
 
 from PySide import QtGui, QtCore
-import ImageGrab
 import win32gui
 
 
@@ -147,7 +146,7 @@ class Assist(object):
         self.game_wnd = game_wnd
         self.cover_panel.setGeometry(game_wnd.show_rect())
 
-    def snap(self, fmt="qt"):
+    def snap(self):
         def check_swicth(gw):
             cur_pos = QtGui.QCursor.pos()
             rect = gw.show_rect()
@@ -158,12 +157,9 @@ class Assist(object):
         if gw:
             check_swicth(gw)
             r = gw.target_rect()
-            if fmt == 'qt':
-                return QtGui.QPixmap.grabWindow(
-                    QtGui.QApplication.desktop().winId(),
-                    r.x(), r.y(), r.width(), r.height())
-            else:
-                return ImageGrab.grab((r.x(), r.y(), r.right(), r.bottom()))
+	    return QtGui.QPixmap.grabWindow(
+		QtGui.QApplication.desktop().winId(),
+		r.x(), r.y(), r.width(), r.height())
 
     def grab_game_iamge(self):
         self.relocate_panel()
